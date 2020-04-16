@@ -40,3 +40,4 @@ __run(selector).method();
 7. attr()
     >to add or write attribute
     
+### COMING SOON...
