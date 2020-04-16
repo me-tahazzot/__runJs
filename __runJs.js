@@ -96,15 +96,13 @@ let
 
         if (typeof selector === 'undefined' || !selector instanceof NodeList)
             elms = [];
-
-
+	    
         if (typeof selector !== 'undefined' && typeof selector === 'object' && !selector instanceof NodeList)
             throw new Error('Failed to select the ElementList! Please provide a valid selector.');
-
-
         if (typeof selector === 'number')
+		
             throw new Error('Number is not a type of selector!');
-
+	    
         return elms;
     }
 
@@ -118,7 +116,7 @@ let
         __run = function (selector) {
             return new __run.init(selector);
         }
-
+    
     /**
      * 
      * @extend
@@ -130,12 +128,11 @@ let
             elms = getNodeList(selector);
             return this;
         };
-
+	
     __run.fn = init.prototype = __run.prototype;
     __run.extend = function (arg) {
         if (!arg instanceof Object)
             return false;
-
         for (key in arg) {
             __run.fn[key] = arg[key];
         }
@@ -296,38 +293,34 @@ let
         Event = {
             on: function (event, elms, func) {
                 if (typeof elms === 'undefined')
-                    return
-
+                    throw new Error('An elements should be assign in here.');
+		    
                 elms = getNodeList(elms);
-
                 switch (elms) {
                     case global || window:
                         processEvent(event, window, func);
                         break;
-
+				
                     case document:
                         processEvent(event, document, func);
                         break;
-
+				
                     default:
                         [].forEach.call(elms, function (elm) {
                             processEvent(event, elm, func)
                         });
                 }
-
+		    
                 function processEvent(event, elm, func) {
                     if (elm.addEventListener)
                         elm.addEventListener(event, func)
                 }
             },
-
-
         };
 
     //default listener without on()
     [].forEach.call(EventName.split(" "), function (event) {
         Event[event] = function (func) {
-
             switch (elms) {
                 case global || window:
                     processEvent(event, window, func);
@@ -352,7 +345,7 @@ let
 
     //append it to the runJs
     __run.extend(Event);
-
+	
     /***
      * 
      * @return __RUN
