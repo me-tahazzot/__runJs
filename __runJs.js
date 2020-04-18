@@ -158,7 +158,7 @@ let
                     if (!access) {
                         let
                             newClass = elm.className.replace(/ +(?= )/g, '');
-                        elm.className = (newClass + ' active');
+                        elm.className += string;
                     }
                 });
 
